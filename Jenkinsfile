@@ -1,5 +1,9 @@
 pipeline{
     agent any
+    tools{
+        jdk 'jdk17'
+        nodejs 'node16'
+    }    
     environment {
         DOCKER_IMAGE_NAME = "ahmedgmansour/youtube"
         // NAMESPACE = " "
@@ -30,6 +34,11 @@ pipeline{
                 git branch: 'diamond', url: 'https://github.com/Aakibgithuber/deployment-of-youtube.git'
             }
         }
+        stage('Install Dependencies') {
+            steps {
+                sh "npm install"
+            }
+        }        
         stage('Compile') {
             steps {
                 sh "echo hello"
